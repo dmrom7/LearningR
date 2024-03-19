@@ -6,3 +6,5 @@ Imports:
     knitr,
     rmarkdown
 Encoding: UTF-8
+URL: https://github.com/dmrom7/LearningR
+BugReports: https://github.com/dmrom7/LearningR/issues
