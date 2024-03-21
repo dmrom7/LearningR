@@ -66,3 +66,36 @@ nhanes_small %>%
   )
 nhanes_small %>%
   rename(bp_systolic = bp_sys_ave)
+
+# Filter and select
+nhanes_small %>%
+    filter(phys_active != "No") %>%
+    select(phys_active)
+
+# When BMI is 25 AND phys_active is No
+nhanes_small %>%
+    filter(bmi == 25 | phys_active == "No") %>%
+    select(bmi, phys_active)
+
+nhanes_small %>%
+    mutate(age = age * 12,
+           logged_bmi = log(bmi))
+
+# Mutate and logic condition
+nhanes_update <- nhanes_small %>%
+    mutate(old = if_else(age >= 30, "Yes", "No"))
+
+# 1. BMI between 20 and 40 with diabetes
+nhanes_small %>%
+    # Format should follow: variable >= number or character
+    filter(bmi >= 20 & bmi <= 40 & diabetes == "Yes")
+
+# Pipe the data into mutate function and:
+nhanes_modified <- nhanes_small %>% # Specifying dataset
+    mutate(
+        # 2. Calculate mean arterial pressure
+        mean_arterial_pressure = round(((2 * bp_dia_ave) + bp_sys_ave)/3, 2),
+        young_child = if_else(age < 6, "Yes", "No")
+    )
+
+nhanes_modified
